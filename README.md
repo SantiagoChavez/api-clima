@@ -1,65 +1,76 @@
-# Consulta de Clima con Flask 🌦️
+Consulta de Clima con Flask 🌦️
 
-Aplicación web simple desarrollada en Python y Flask que permite a los usuarios consultar el clima actual de cualquier ciudad utilizando la API de OpenWeatherMap.
+Aplicación de escritorio y web desarrollada en Python que permite consultar el clima en tiempo real utilizando la API de OpenWeatherMap.
 
-## 🚀 Características
+El proyecto ha evolucionado de un script simple a una aplicación completa que se ejecuta en el navegador y puede compilarse como un ejecutable de Windows (.exe).
 
-* **Interfaz Limpia:** Un formulario simple para ingresar la ciudad y la API key.
-* **Consulta en Tiempo Real:** Llama directamente a la API de OpenWeatherMap.
-* **Resultados Claros:** Muestra la temperatura, sensación térmica, humedad y descripción del clima.
-* **Manejo de Errores:** Informa al usuario si la API key es incorrecta o la ciudad no se encuentra.
+🚀 Características
 
-## 🛠️ Tecnologías Usadas
+Interfaz Gráfica Web: Formulario amigable en HTML/CSS (ya no usa consola).
 
-* **Python**
-* **Flask:** Como micro-framework web para el backend.
-* **Requests:** Para realizar las consultas (peticiones HTTP) a la API externa.
-* **HTML & CSS:** Para la interfaz de usuario (frontend).
+Modo Aplicación: Al iniciar, abre automáticamente tu navegador predeterminado.
 
-## ⚙️ Cómo Ejecutar el Proyecto
+Portátil: Soporte para convertir en .exe (no requiere Python instalado en la PC del usuario final).
 
-Sigue estos pasos para correr el proyecto en tu máquina local.
+Datos en Tiempo Real: Temperatura, sensación térmica, humedad y descripción del clima.
 
-### 1. Prerrequisitos
+Validaciones: Manejo de errores para ciudades inexistentes o claves de API erróneas.
 
-* Tener Python 3 instalado.
-* Tener una **API key** de OpenWeatherMap. Puedes conseguir una gratis [registrándote aquí](https://openweathermap.org/appid).
+🛠️ Tecnologías Usadas
 
-### 2. Instalación
+Python 3.13+
 
-1.  Clona este repositorio (suponiendo que tu repo se llame `api-clima`):
-    ```bash
-    git clone [https://github.com/SantiagoChavez/api-clima.git](https://github.com/SantiagoChavez/api-clima.git)
-    cd api-clima
-    ```
+Flask: Backend web ligero.
 
-2.  (Opcional pero recomendado) Crea un entorno virtual:
-    ```bash
-    # En Windows
-    python -m venv venv
-    venv\Scripts\activate
-    
-    # En macOS/Linux
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+HTML5 & CSS3: Frontend.
 
-3.  Instala las dependencias necesarias:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *(Asegúrate de haber creado el archivo `requirements.txt` con `pip freeze > requirements.txt`)*
+Requests: Consumo de API.
 
-### 3. Ejecución
+PyInstaller: Para generar el ejecutable de Windows.
 
-1.  Corre el servidor de Flask:
-    ```bash
-    python api_clima.py
-    ```
+Webbrowser & Threading: Para la automatización del inicio.
 
-2.  Abre tu navegador y ve a la siguiente dirección:
-    ```
-    [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
-    ```
+⚙️ Instalación y Ejecución (Modo Desarrollador)
 
-3.  ¡Listo! Ingresa tu API key de OpenWeatherMap y el nombre de una ciudad para ver el clima.
+Si quieres ver el código o modificarlo, sigue estos pasos:
+
+Clonar el repositorio:
+
+git clone [https://github.com/SantiagoChavez/api-clima.git](https://github.com/SantiagoChavez/api-clima.git)
+cd api-clima
+
+
+Instalar dependencias:
+
+pip install -r requirements.txt
+
+
+Ejecutar la aplicación:
+
+python api_clima.py
+
+
+El navegador se abrirá automáticamente en http://127.0.0.1:5000/
+
+📦 Crear el Ejecutable (.exe)
+
+Para convertir este proyecto en un archivo .exe único que puedas compartir con amigos (sin que ellos instalen Python), usa PyInstaller:
+
+Instalar PyInstaller (si no lo tienes):
+
+pip install pyinstaller
+
+
+Generar el ejecutable:
+Ejecuta este comando en tu terminal (asegúrate de estar en la carpeta del proyecto):
+
+pyinstaller --name="ClimaApp" --onefile --add-data "templates;templates" api_clima.py
+
+
+Listo: Encontrarás tu aplicación en la carpeta dist/ClimaApp.exe.
+
+📝 Notas
+
+Necesitas una API Key gratuita de OpenWeatherMap para usar la aplicación.
+
+La carpeta dist/ y build/ están ignoradas en el repositorio para mantenerlo limpio.
