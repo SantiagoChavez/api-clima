@@ -1,8 +1,6 @@
-# api_clima.py
-
+import webbrowser
+from threading import Timer
 import requests
-
-# Importamos render_template (para mostrar el HTML) y request (para leer el form)
 from flask import Flask, jsonify, render_template, request
 
 # ----------------------------------------------------
@@ -10,11 +8,10 @@ from flask import Flask, jsonify, render_template, request
 # ----------------------------------------------------
 app = Flask(__name__)
 
+
 # ----------------------------------------------------
 # Ruta principal (GET para mostrar, POST para procesar)
 # ----------------------------------------------------
-
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     # Si el método es POST (el usuario envió el formulario)
@@ -27,10 +24,8 @@ def index():
             error_msg = "Ambos campos (API Key y Ciudad) son obligatorios."
             return render_template("index.html", error=error_msg, data=None)
 
-        # URL de la API (ahora usa la clave del formulario)
+        # URL de la API
         url = f"https://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={apiKey}&units=metric&lang=es"
-
-        # print(f"Realizando consulta a: {url}")
 
         try:
             response = requests.get(url)
@@ -40,7 +35,6 @@ def index():
                 error_msg = data.get(
                     "message", "Ciudad no encontrada o API Key incorrecta."
                 )
-                # Devolvemos la página con el mensaje de error
                 return render_template("index.html", error=error_msg, data=None)
 
             # Armamos el JSON con los datos que queremos
@@ -55,23 +49,31 @@ def index():
                 .capitalize(),
             }
 
-            # Devolvemos la página, pero esta vez con los datos del clima
+            # Devolvemos la página con los datos del clima
             return render_template("index.html", data=resultado, error=None)
 
         except requests.exceptions.RequestException as e:
-            print(f"Error de conexión: {e}")
+            # print(f"Error de conexión: {e}") # Comentado para evitar error de consola
             error_msg = "Error de conexión con la API de OpenWeatherMap."
             return render_template("index.html", error=error_msg, data=None)
 
     # Si el método es GET (el usuario acaba de abrir la página)
-    # Simplemente mostramos la página vacía
     return render_template("index.html", data=None, error=None)
 
 
 # ----------------------------------------------------
 # Ejecución de la Aplicación
 # ----------------------------------------------------
+
+
+def open_browser():
+    # Abre el navegador en la dirección local
+    webbrowser.open_new("http://127.0.0.1:5000/")
+
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    # Programa que el navegador se abra 1 segundo después de iniciar el servidor
+    Timer(1, open_browser).start()
+
+    # IMPORTANTE: debug=False es obligatorio para crear el .exe sin errores
+    app.run(debug=False, port=5000)
